@@ -184,7 +184,7 @@ public class FormTests {
         driver.findElement(By.cssSelector("[data-test-id=agreement]")).click();
         driver.findElement(By.cssSelector("form button.button_view_extra")).click();
 
-        String expected = "Имя и Фамилия указаные неверно. Допустимы только русские буквы, пробелы и дефисы.";
+        String expected = "Поле обязательно для заполнения";
         String actual = driver.findElement(By.cssSelector("[data-test-id=name].input_invalid .input__sub")).getText().trim();
 
         assertEquals(expected, actual);
@@ -197,7 +197,7 @@ public class FormTests {
         driver.findElement(By.cssSelector("[data-test-id=agreement]")).click();
         driver.findElement(By.cssSelector("form button.button_view_extra")).click();
 
-        String expected = "Имя и Фамилия указаные неверно. Допустимы только русские буквы, пробелы и дефисы.";
+        String expected = "Имя и Фамилия указаные неверно.";
         String actual = driver.findElement(By.cssSelector("[data-test-id=name].input_invalid .input__sub")).getText().trim();
 
         assertEquals(expected, actual);
@@ -210,7 +210,20 @@ public class FormTests {
         driver.findElement(By.cssSelector("[data-test-id=agreement]")).click();
         driver.findElement(By.cssSelector("form button.button_view_extra")).click();
 
-        String expected = "Имя и Фамилия указаные неверно. Допустимы только русские буквы, пробелы и дефисы.";
+        String expected = "Имя и Фамилия указаные неверно.";
+        String actual = driver.findElement(By.cssSelector("[data-test-id=name].input_invalid .input__sub")).getText().trim();
+
+        assertEquals(expected, actual);
+    }
+
+    @Test
+    void inputInvalidValueInNameSurnameFieldTestV7() {
+        driver.findElement(By.cssSelector("[data-test-id=name] input")).sendKeys(" ");
+        driver.findElement(By.cssSelector("[data-test-id=phone] input")).sendKeys("+79987777777");
+        driver.findElement(By.cssSelector("[data-test-id=agreement]")).click();
+        driver.findElement(By.cssSelector("form button.button_view_extra")).click();
+
+        String expected = "Поле обязательно для заполнения";
         String actual = driver.findElement(By.cssSelector("[data-test-id=name].input_invalid .input__sub")).getText().trim();
 
         assertEquals(expected, actual);
@@ -244,12 +257,12 @@ public class FormTests {
 
     @Test
     void inputLimitValueInNameSurnameFieldTestV3() {
-        driver.findElement(By.cssSelector("[data-test-id=name] input")).sendKeys(" Всеволодомирознающиймиролюбливыйвсеволодомирознающиймиролюбливый Всеволодомирознающиймиролюбливыйвсеволодомирознающиймиролюбливый");
+        driver.findElement(By.cssSelector("[data-test-id=name] input")).sendKeys("Всеволодомирознающиймиролюбливыйвсеволодомирознающиймиролюбливый Всеволодомирознающиймиролюбливыйвсеволодомирознающиймиролюбливый");
         driver.findElement(By.cssSelector("[data-test-id=phone] input")).sendKeys("+79987777777");
         driver.findElement(By.cssSelector("[data-test-id=agreement]")).click();
         driver.findElement(By.cssSelector("form button.button_view_extra")).click();
 
-        String expected = "Значение поля не может быть длиннее 128 символов";
+        String expected = "Значение поля не может быть длиннее 129 символов";
         String actual = driver.findElement(By.cssSelector("[data-test-id=name].input_invalid .input__sub")).getText().trim();
 
         assertEquals(expected, actual);
@@ -302,6 +315,19 @@ public class FormTests {
         driver.findElement(By.cssSelector("form button.button_view_extra")).click();
 
         String expected = "Телефон указан неверно. Должно быть 11 цифр, например, +79012345678.";
+        String actual = driver.findElement(By.cssSelector("[data-test-id=phone].input_invalid .input__sub")).getText().trim();
+
+        assertEquals(expected, actual);
+    }
+
+    @Test
+    void inputInvalidValueInPhoneFieldTestV5() {
+        driver.findElement(By.cssSelector("[data-test-id=name] input")).sendKeys("Иван Иванов");
+        driver.findElement(By.cssSelector("[data-test-id=phone] input")).sendKeys("");
+        driver.findElement(By.cssSelector("[data-test-id=agreement]")).click();
+        driver.findElement(By.cssSelector("form button.button_view_extra")).click();
+
+        String expected = "Поле обязательно для заполнения";
         String actual = driver.findElement(By.cssSelector("[data-test-id=phone].input_invalid .input__sub")).getText().trim();
 
         assertEquals(expected, actual);
